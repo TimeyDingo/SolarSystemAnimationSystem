@@ -1,6 +1,20 @@
-[gd_scene load_steps=9 format=4 uid="uid://c3avqmaouk6pl"]
+[gd_scene load_steps=12 format=4 uid="uid://c3avqmaouk6pl"]
 
 [ext_resource type="Script" path="res://thruster.gd" id="1_grdbx"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_q8d3r"]
+
+[sub_resource type="Sky" id="Sky_u7krc"]
+sky_material = SubResource("PhysicalSkyMaterial_q8d3r")
+
+[sub_resource type="Environment" id="Environment_1rr08"]
+background_mode = 2
+sky = SubResource("Sky_u7krc")
+ssr_enabled = true
+ssao_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+volumetric_fog_density = 0.007
 
 [sub_resource type="GDScript" id="GDScript_xb722"]
 script/source = "extends CharacterBody3D
@@ -118,8 +132,12 @@ size = Vector3(1, 1, 1.97125)
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12231, 4.28671)
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1rr08")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0634001, 0.997988, 0, -0.997988, 0.0634001, 0, 1.85772, 0)
+light_energy = 1.647
 
 [node name="ThrusterHost" type="Node3D" parent="."]
 

@@ -14,3 +14,15 @@ config/name="SSAS"
 run/main_scene="res://BaseScene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/resizable=false
+window/vsync/vsync_mode=0
+
+[rendering]
+
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=5
+anti_aliasing/quality/msaa_3d=3
