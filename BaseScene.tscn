@@ -1,20 +1,35 @@
-[gd_scene load_steps=12 format=4 uid="uid://c3avqmaouk6pl"]
+[gd_scene load_steps=13 format=4 uid="uid://c3avqmaouk6pl"]
 
 [ext_resource type="Script" path="res://thruster.gd" id="1_grdbx"]
+[ext_resource type="Texture2D" uid="uid://k2kw73g70uee" path="res://SpaceMk3.png" id="1_yl4i4"]
 
-[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_q8d3r"]
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_kb5nl"]
+panorama = ExtResource("1_yl4i4")
 
-[sub_resource type="Sky" id="Sky_u7krc"]
-sky_material = SubResource("PhysicalSkyMaterial_q8d3r")
+[sub_resource type="Sky" id="Sky_n71vk"]
+sky_material = SubResource("PanoramaSkyMaterial_kb5nl")
+process_mode = 1
 
 [sub_resource type="Environment" id="Environment_1rr08"]
 background_mode = 2
-sky = SubResource("Sky_u7krc")
+background_color = Color(1, 1, 1, 1)
+sky = SubResource("Sky_n71vk")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 16.0
+tonemap_mode = 2
+tonemap_white = 16.0
 ssr_enabled = true
 ssao_enabled = true
-sdfgi_enabled = true
+ssil_enabled = true
+sdfgi_use_occlusion = true
 glow_enabled = true
-volumetric_fog_density = 0.007
+fog_light_color = Color(1, 1, 1, 1)
+fog_light_energy = 0.66
+fog_sun_scatter = 1.0
+fog_sky_affect = 0.0
+volumetric_fog_density = 0.001
+volumetric_fog_emission = Color(1, 1, 1, 1)
 
 [sub_resource type="GDScript" id="GDScript_xb722"]
 script/source = "extends CharacterBody3D
@@ -136,8 +151,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12231, 4.28671)
 environment = SubResource("Environment_1rr08")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.0634001, 0.997988, 0, -0.997988, 0.0634001, 0, 1.85772, 0)
-light_energy = 1.647
+transform = Transform3D(1, 0, 0, 0, 0.0634001, 0.997988, 0, -0.997988, 0.0634001, 0, 1000, 0)
+light_energy = 0.5
+light_indirect_energy = 16.0
+light_angular_distance = 24.55
+shadow_enabled = true
+shadow_blur = 0.671
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.118369, -0.99297, 0, 0.99297, -0.118369, 0, -1000, -1.854)
+light_energy = 0.09
+light_indirect_energy = 16.0
+light_angular_distance = 34.55
+shadow_enabled = true
+shadow_blur = 0.671
 
 [node name="ThrusterHost" type="Node3D" parent="."]
 
