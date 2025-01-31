@@ -1,0 +1,27 @@
+[gd_scene load_steps=8 format=3 uid="uid://c25o008vmmmxg"]
+
+[ext_resource type="PackedScene" uid="uid://cmec0fsunnqdk" path="res://Scenes/Turret/TurretTest.fbx" id="1_yo3ql"]
+[ext_resource type="Texture2D" uid="uid://bholr5n22tug3" path="res://Scenes/Turret/TurretBaseTex.png" id="2_qfbfy"]
+[ext_resource type="Texture2D" uid="uid://mq46n4tyucdb" path="res://Scenes/Turret/BarrelTexture.png" id="3_ipat6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_myx2j"]
+albedo_texture = ExtResource("2_qfbfy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pvl3l"]
+albedo_texture = ExtResource("2_qfbfy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8wfu7"]
+albedo_texture = ExtResource("3_ipat6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k3cap"]
+albedo_texture = ExtResource("3_ipat6")
+
+[node name="Turret" instance=ExtResource("1_yo3ql")]
+
+[node name="Base" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_myx2j")
+surface_material_override/1 = SubResource("StandardMaterial3D_pvl3l")
+
+[node name="Turret head" parent="Base" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_8wfu7")
+surface_material_override/1 = SubResource("StandardMaterial3D_k3cap")
