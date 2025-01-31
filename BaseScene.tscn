@@ -1,35 +1,8 @@
-[gd_scene load_steps=13 format=4 uid="uid://c3avqmaouk6pl"]
+[gd_scene load_steps=12 format=4 uid="uid://c3avqmaouk6pl"]
 
 [ext_resource type="Script" path="res://thruster.gd" id="1_grdbx"]
-[ext_resource type="Texture2D" uid="uid://k2kw73g70uee" path="res://SpaceMk3.png" id="1_yl4i4"]
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_kb5nl"]
-panorama = ExtResource("1_yl4i4")
-
-[sub_resource type="Sky" id="Sky_n71vk"]
-sky_material = SubResource("PanoramaSkyMaterial_kb5nl")
-process_mode = 1
-
-[sub_resource type="Environment" id="Environment_1rr08"]
-background_mode = 2
-background_color = Color(1, 1, 1, 1)
-sky = SubResource("Sky_n71vk")
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 16.0
-tonemap_mode = 2
-tonemap_white = 16.0
-ssr_enabled = true
-ssao_enabled = true
-ssil_enabled = true
-sdfgi_use_occlusion = true
-glow_enabled = true
-fog_light_color = Color(1, 1, 1, 1)
-fog_light_energy = 0.66
-fog_sun_scatter = 1.0
-fog_sky_affect = 0.0
-volumetric_fog_density = 0.001
-volumetric_fog_emission = Color(1, 1, 1, 1)
+[ext_resource type="PackedScene" uid="uid://dy7y41whom6hw" path="res://ShellCasing.glb" id="2_xpm2j"]
+[ext_resource type="PackedScene" uid="uid://c0j1ah6up8xdc" path="res://Turret.glb" id="4_np2mj"]
 
 [sub_resource type="GDScript" id="GDScript_xb722"]
 script/source = "extends CharacterBody3D
@@ -142,13 +115,14 @@ blend_shape_mode = 0
 [sub_resource type="BoxShape3D" id="BoxShape3D_mnp0l"]
 size = Vector3(1, 1, 1.97125)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y5lb5"]
+
 [node name="BaseScene" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12231, 4.28671)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_1rr08")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0634001, 0.997988, 0, -0.997988, 0.0634001, 0, 1000, 0)
@@ -167,8 +141,10 @@ shadow_enabled = true
 shadow_blur = 0.671
 
 [node name="ThrusterHost" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.01378, 0, 0)
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="ThrusterHost"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.508755, 0, 0)
 motion_mode = 1
 script = SubResource("GDScript_xb722")
 
@@ -185,3 +161,15 @@ script = ExtResource("1_grdbx")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ThrusterHost/CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0421448)
 shape = SubResource("BoxShape3D_mnp0l")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92921, 0, 0)
+process_material = SubResource("ParticleProcessMaterial_y5lb5")
+
+[node name="TurretHost" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0119541, 0, -0.00212955)
+
+[node name="Turret" parent="TurretHost" instance=ExtResource("4_np2mj")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+
+[node name="ShellCasing" parent="TurretHost" instance=ExtResource("2_xpm2j")]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3fwfo6dgfk2o"
-path="res://.godot/imported/SpaceMk3.png-2c82fb5f1750eebcf5d18ca312010c7b.ctex"
+uid="uid://cdqp6i6ug0tmj"
+path="res://.godot/imported/BarrelTexture.png-c13a39d3b60374a24521850f3872c22d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SpaceMk3.png"
-dest_files=["res://.godot/imported/SpaceMk3.png-2c82fb5f1750eebcf5d18ca312010c7b.ctex"]
+source_file="res://textures/BarrelTexture.png"
+dest_files=["res://.godot/imported/BarrelTexture.png-c13a39d3b60374a24521850f3872c22d.ctex"]
 
 [params]
 
