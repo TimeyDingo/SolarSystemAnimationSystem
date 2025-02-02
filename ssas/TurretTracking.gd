@@ -2,19 +2,28 @@ extends CharacterBody3D
 
 @export var base_rotation_speed := 1.5  # Rotation speed for Base
 @export var turret_rotation_speed := 1.2  # Rotation speed for Turret
+@export var target: Node3D  # Assign the target in the editor
 
 @onready var base = $CollisionShape3D/Base  # Get the Base node
 @onready var turret_head = $CollisionShape3D/Base/TurretHead  # Get the Turret Head node
 
 func _process(delta):
-	# Rotate Base (Left/Right)
-	if Input.is_action_pressed("ui_left"):
-		base.rotate_z(delta * base_rotation_speed)
-	elif Input.is_action_pressed("ui_right"):
-		base.rotate_z(-delta * base_rotation_speed)
+	if target:
+		track_target(delta)
 
-	# Rotate Turret Head (Up/Down)
-	if Input.is_action_pressed("ui_up"):
-		turret_head.rotate_x(-delta * turret_rotation_speed)  # Negative for upward
-	elif Input.is_action_pressed("ui_down"):
-		turret_head.rotate_x(delta * turret_rotation_speed)  # Positive for downward
+func track_target(delta):
+	var base_position = base.global_transform.origin
+	var turret_position = turret_head.global_transform.origin
+	var target_position = target.global_transform.origin
+
+	# Base Rotation (Horizontal)
+	var base_target_direction = (target_position - base_position).normalized()
+	var base_target_rotation = atan2(base_target_direction.x, base_target_direction.z)
+	var base_current_rotation = base.rotation.z
+	base.rotation.z = lerp_angle(base_current_rotation, base_target_rotation, base_rotation_speed * delta)
+
+	# Turret Head Rotation (Vertical)
+	var turret_target_direction = (target_position - turret_position).normalized()
+	var turret_target_rotation = -asin(turret_target_direction.y)  # Negative to match Godot's coordinate system
+	var turret_current_rotation = turret_head.rotation.x
+	turret_head.rotation.x = lerp_angle(turret_current_rotation, turret_target_rotation, turret_rotation_speed * delta)

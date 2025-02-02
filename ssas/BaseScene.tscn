@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=4 uid="uid://sancjgx04sgt"]
+[gd_scene load_steps=21 format=4 uid="uid://sancjgx04sgt"]
 
 [ext_resource type="Script" path="res://TurretTracking.gd" id="1_u5cyc"]
 [ext_resource type="Texture2D" uid="uid://bholr5n22tug3" path="res://Scenes/Turret/TurretBaseTex.png" id="2_pcdeh"]
 [ext_resource type="Texture2D" uid="uid://mq46n4tyucdb" path="res://Scenes/Turret/BarrelTexture.png" id="3_wuq7h"]
+[ext_resource type="Script" path="res://TargetMove.gd" id="4_lii7s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2uqnj"]
 
@@ -150,13 +151,20 @@ albedo_texture = ExtResource("3_wuq7h")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g2gnr"]
 albedo_texture = ExtResource("3_wuq7h")
 
+[sub_resource type="BoxMesh" id="BoxMesh_uc2yt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0w62n"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ophe3"]
+
 [node name="BaseSCene" type="Node3D"]
 
 [node name="Turret" type="Node3D" parent="."]
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="Turret"]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="Turret" node_paths=PackedStringArray("target")]
 motion_mode = 1
 script = ExtResource("1_u5cyc")
+target = NodePath("../../CharacterBody3D/MeshInstance3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Turret/CharacterBody3D"]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, 0.126572, 0)
@@ -176,5 +184,23 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_uekx3")
 surface_material_override/1 = SubResource("StandardMaterial3D_g2gnr")
 
+[node name="BarrelRay" type="MeshInstance3D" parent="Turret/CharacterBody3D/CollisionShape3D/Base/TurretHead"]
+transform = Transform3D(0.001, 0, 0, 0, 0.246, -1.38778e-17, 0, 7.10543e-15, 0.001, 0, -0.125518, -1.49012e-08)
+transparency = 0.43
+mesh = SubResource("BoxMesh_uc2yt")
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.526169, 1.67551)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80242, -1.62622)
+motion_mode = 1
+script = ExtResource("4_lii7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_0w62n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("BoxMesh_ophe3")
+skeleton = NodePath("../..")
